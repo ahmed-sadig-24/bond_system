@@ -1,23 +1,24 @@
 package com.skillstorm.bondsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "country")
-public class Country {
+@Table(name = "issuer_type")
+public class IssuerType {
 
       @Id
-      @Column(name = "country_id")
-      private Integer countryId;
+      @Column(name = "issuer_type_id")
+      private Integer issuerTypeId;
 
-      @Column(name = "country_name", nullable = false, unique = true, length = 255)
-      private String countryName;
+      @Column(name = "issuer_type_name", nullable = false, unique = true, length = 255)
+      private String issuerTypeName;
 
-      @Column(name = "created_by", nullable = false, length = 50)
+      @Column(name = "created_by", length = 50)
       private String createdBy;
 
       @Column(name = "created_at")
@@ -29,36 +30,25 @@ public class Country {
       @Column(name = "updated_at")
       private Timestamp updatedAt;
 
-      @OneToMany(mappedBy = "country")
+      @OneToMany(mappedBy = "issuerType")
       @JsonIgnore
+      //@JsonManagedReference
       private List<Issuer> issuers;
 
-      public Country() {
+      public Integer getIssuerTypeId() {
+            return issuerTypeId;
       }
 
-      public Country(Integer countryId, String countryName, String createdBy, Timestamp createdAt, String updatedBy, Timestamp updatedAt) {
-            this.countryId = countryId;
-            this.countryName = countryName;
-            this.createdBy = createdBy;
-            this.createdAt = createdAt;
-            this.updatedBy = updatedBy;
-            this.updatedAt = updatedAt;
+      public void setIssuerTypeId(Integer issuerTypeId) {
+            this.issuerTypeId = issuerTypeId;
       }
 
-      public Integer getCountryId() {
-            return countryId;
+      public String getIssuerTypeName() {
+            return issuerTypeName;
       }
 
-      public void setCountryId(Integer countryId) {
-            this.countryId = countryId;
-      }
-
-      public String getCountryName() {
-            return countryName;
-      }
-
-      public void setCountryName(String countryName) {
-            this.countryName = countryName;
+      public void setIssuerTypeName(String issuerTypeName) {
+            this.issuerTypeName = issuerTypeName;
       }
 
       public String getCreatedBy() {
@@ -69,6 +59,10 @@ public class Country {
             this.createdBy = createdBy;
       }
 
+      public Timestamp getCreatedAt() {
+            return createdAt;
+      }
+
       public void setCreatedAt(Timestamp createdAt) {
             this.createdAt = createdAt;
       }
@@ -77,16 +71,12 @@ public class Country {
             return updatedBy;
       }
 
-      public Timestamp getCreatedAt() {
-            return createdAt;
+      public void setUpdatedBy(String updatedBy) {
+            this.updatedBy = updatedBy;
       }
 
       public Timestamp getUpdatedAt() {
             return updatedAt;
-      }
-
-      public void setUpdatedBy(String updatedBy) {
-            this.updatedBy = updatedBy;
       }
 
       public void setUpdatedAt(Timestamp updatedAt) {
